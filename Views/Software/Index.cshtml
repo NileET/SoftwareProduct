@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Software.Models.SoftwareProduct>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+<div>
+    <a asp-action="CreateProduct">Добавить запись</a> |
+    <form asp-action="Index" asp-controller="Software" method="get">
+        <div class="form-inline form-group">
+            <label class="control-label">Поиск программы: </label>
+            <input name="name" />
+
+            <input type="submit" value="Искать" class="btn btn-default" />
+        </div>
+    </form>
+    <hr />
+    <table class="table">
+        <thead>
+            <tr>
+                <th><a asp-action="Index" asp-route-order="@ViewBag.IdSort">Id</a></th>
+                <th><a asp-action="Index" asp-route-order="@ViewBag.NameSort">Название</a></th>
+                <th><a asp-action="Index" asp-route-order="@ViewBag.TypeSort">Тип</a></th>
+                <th><a asp-action="Index" asp-route-order="@ViewBag.VerSort">Версия</a></th>
+                <th><a asp-action="Index" asp-route-order="@ViewBag.DateSort">Дата релиза</a></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (var product in Model)
+                {
+                    <tr>
+                        <td>@product.ProductId</td>
+                        <td>@product.ProductName</td>
+                        <td>@product.Type</td>
+                        <td>@product.Version</td>
+                        <td>@product.ReleaseDate</td>
+                        <td><a asp-action="EditProduct" asp-route-id="@product.ProductId">Изменить</a></td>
+                        <td><a asp-action="DeleteProduct" asp-route-id="@product.ProductId">Удалить</a></td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
